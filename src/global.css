@@ -1,0 +1,188 @@
+:root {
+  /* Color styles */
+  --blue-100: rgba(186, 215, 249, 1);
+  --blue-200: rgba(161, 187, 219, 1);
+  --blue-300: rgba(92, 107, 136, 1);
+  --blue-400: rgba(43, 48, 55, 1);
+  --blue-500: rgba(34, 39, 50, 1);
+  --blue-500--faded: rgba(34, 39, 50, 0.5);
+  --blue-600: rgba(36, 38, 41, 1);
+  --blue-700: rgba(25, 27, 29, 1);
+  --blue-700--faded: rgba(25, 27, 29, 0.5);
+  --green: rgba(62, 222, 136, 1);
+  --green--dark: rgba(39, 173, 101, 1);
+  --blue--light: rgba(116, 171, 255, 1);
+  --blue: rgba(63, 130, 231, 1);
+  --blue--faded: rgba(63, 130, 231, 0.6);
+  --blue--dark: rgba(30, 81, 159, 1);
+  --blue--dark--faded: rgba(30, 81, 159, 0.3);
+  --danger: rgba(226, 88, 88, 1);
+  --danger--faded: rgba(226, 88, 88, 0.5);
+
+  /* Effect styles */
+  --default-bg-blur: 30px;
+  --blue-underglow: 
+      0px 0px 6px rgba(116, 171, 255, 0.3),
+      0px 0px 35px rgba(30, 81, 159, 0.3),
+      0px 10px 35px rgba(63, 130, 231, 0.3);
+  --blue-underglow--soft: 
+      0 10px 35px rgba(63, 130, 231, 0.1),
+      0px 0px 35px rgba(30, 81, 159, 0.1),
+      0px 0px 6px rgba(116, 171, 255, 0.1);
+  --green-underglow: 
+      0 10px 35px rgba(62, 222, 136, 0.4),
+      0px 0px 6px rgba(39, 173, 101, 0.4);
+  --green-underglow--soft: 
+      0 10px 35px rgba(62, 222, 136, 0.2),
+      0px 0px 6px rgba(39, 173, 101, 0.2);
+  --checkmark-completed-underglow: 
+      0 0 20px rgba(62, 222, 136, 0.4),
+      0 0 6px rgba(39, 173, 101, 0.4);
+  --checkmark-faded-underglow: 
+      0px 0px 6px rgba(116, 171, 255, 0.3),
+      0px 0px 20px rgba(30, 81, 159, 0.3),
+      0px 0 20px rgba(63, 130, 231, 0.3);
+  --trash-icon-underglow:
+      drop-shadow(0 0 0.5rem var(--danger))
+      drop-shadow(0 0 1rem var(--danger--faded));
+
+  /* Misc. stylings */
+  --small-border-radius: 8px;
+  --medium-border-radius: 12px;
+  --huge-border-radius: 24px;
+}
+
+
+/* Global stylings
+   ========================================================================== */
+body {
+  /* background-color: var(--gray-900); */
+  min-height: 100vh;
+  background: 
+    linear-gradient(
+      116.82deg,
+      rgba(40, 44, 51, 0.5) 0%,
+      rgba(28, 34, 40, 0.5) 26.04%,
+      rgba(17, 24, 33, 0.5) 51.56%,
+      rgba(11, 23, 22, 0.5) 77.6%,
+      rgba(26, 29, 35, 0.5) 100%),
+      linear-gradient(
+        0deg,
+        #202439,
+        #202439
+      ), 
+      #191B1D;
+
+  font-family: "Exo 2", sans-serif;
+  font-weight: 400;
+  font-size: 1.6rem;
+
+  color: var(--blue-300);
+}
+
+
+
+/* Overall reset
+   ========================================================================== */
+
+/**
+ * Remove the margin and padding in all browsers/
+ */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+
+
+/* Document
+   ========================================================================== */
+
+/**
+ * 1. Adjust the font size to be equal to 10px for better usage
+ *    with the 'rem' units and then provide proper user experience
+ *    when adjusting font size on the browser. 1rem = 10px.
+ * 2. Correct the line height in all browsers.
+ * 3. Prevent adjustments of font size after orientation changes
+ *    in iOS.
+ */
+html {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+
+  font-size: 62.5%; /* 1 */
+  line-height: 1.15; /* 2 */
+  -webkit-text-size-adjust: 100%; /* 3 */
+  -webkit-font-smoothing: antialiased;
+}
+
+
+
+/* Sections
+   ========================================================================== */
+
+/**
+ * Render the `main` element consistently in IE.
+ */
+
+main {
+  display: block;
+}
+
+
+
+/* Text-level semantics
+   ========================================================================== */
+
+/**
+ * Remove the gray background on active links in IE 10.
+ */
+
+a {
+  background-color: transparent;
+}
+
+/**
+ * Add the correct font weight in Chrome, Edge, and Safari.
+ */
+
+ b,
+ strong {
+   font-weight: bolder;
+ }
+
+
+/* Embedded content
+   ========================================================================== */
+
+/**
+ * Remove the border on images inside links in IE 10.
+ */
+
+img {
+  border-style: none;
+}
+
+
+
+/* Forms
+   ========================================================================== */
+
+/**
+ * 1. Change the font styles in all browsers.
+ * 2. Remove the margin in Firefox and Safari.
+ */
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit; /* 1 */
+  font-size: 100%; /* 1 */
+  line-height: 1.15; /* 1 */
+  margin: 0; /* 2 */
+}
