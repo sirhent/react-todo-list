@@ -2,7 +2,11 @@ import { Trash } from "phosphor-react";
 import { useId } from "react";
 import styles from "./Todo.module.css";
 
-export function Todo() {
+interface TodoProps {
+  todoTitle: string;
+}
+
+export function Todo(props: TodoProps) {
   const checkboxId = useId();
 
   return (
@@ -40,7 +44,7 @@ export function Todo() {
       </div>
 
       <h2 className={styles["c-task__title"]}>
-        Task title
+        {props.todoTitle}
       </h2>
 
       <div className={styles["c-task__actions"]}>

@@ -1,4 +1,6 @@
-import { ClipboardText, Plus, Trash } from "phosphor-react";
+import { ChangeEvent, FormEvent, InvalidEvent, useState } from "react";
+
+import { ClipboardText } from "phosphor-react";
 import { Button } from "./components/Button";
 import { LineDivider } from "./components/LineDivider";
 import { Todo } from "./components/Todo";
@@ -8,7 +10,37 @@ import styles from "./App.module.css";
 
 import todoLogo from "./assets/images/brand/Todo-Logo.svg";
 
+const tasks = [
+  "Task 1",
+  "Task 2",
+  "Task 3",
+];
+
 function App() {
+  const [todos, setTodos] = useState<string[]>([]);
+  const [newTodoText, setNewTodoText] = useState("");
+
+  function handleCreateNewTodo(event: FormEvent) {
+    event.preventDefault();
+
+    setTodos([...todos, newTodoText]);
+    setNewTodoText("");
+  }
+
+  function handleNewTodoTextChange(event: ChangeEvent<HTMLInputElement>) {
+    event.target.setCustomValidity("");
+    setNewTodoText(event.target.value);
+  }
+
+  console.log(todos);
+  console.log(newTodoText);
+
+  function handleNewTodoTextInvalid(event: InvalidEvent<HTMLInputElement>) {
+    event.target.setCustomValidity("Insira um título para a tarefa.");
+  }
+
+  const isTodoListEmpty = todos.length === 0;
+
   return (
     <div className={styles["o-board-container"]}>
       <header className={styles["c-board-header"]}>
@@ -23,7 +55,10 @@ function App() {
       </header>
 
       <main className={styles["c-board-layout"]}>
-        <form className={styles["c-task-form"]}>
+        <form 
+            className={styles["c-task-form"]}
+            onSubmit={handleCreateNewTodo}
+          >
           <div className={styles["c-task-form__group"]}>
             <input
               className={styles["c-task-form__group__input"]}
@@ -31,6 +66,10 @@ function App() {
               id="taskName"
               name="taskName"
               placeholder="Adicione uma nova tarefa"
+              value={newTodoText}
+              onChange={handleNewTodoTextChange}
+              onInvalid={handleNewTodoTextInvalid}
+              required
             />
             <label 
               className={styles["c-task-form__group__label"]}
@@ -39,7 +78,12 @@ function App() {
               Adicione uma nova tarefa
             </label>
           </div>
-          <Button />
+          <Button 
+            iconName="Plus"
+            btnText="CRIAR"
+            btnTitle="Criar nova tarefa"
+            btnType="submit"
+          />
         </form>
 
         <section className={styles["o-task-list-content"]}>
@@ -59,27 +103,31 @@ function App() {
 
           <LineDivider />
 
-          <div className={styles["c-empty-tasklist"]}>
-            <ClipboardText 
-              className={styles["c-empty-tasklist__icon"]}
-              weight="thin"
-              size={64}
-            />
-            <div className={styles["c-empty-tasklist__content"]}>
-              <h2 className={styles["c-empty-tasklist__content__title"]}>
-                Você ainda não tem tarefas cadastradas.
-              </h2>
-              <p className={styles["c-empty-tasklist__content__paragraph"]}>
-                Crie tarefas e organize seus itens a fazer.
-              </p>
+          {isTodoListEmpty ? (
+            <div className={styles["c-empty-tasklist"]}>
+              <ClipboardText 
+                className={styles["c-empty-tasklist__icon"]}
+                weight="thin"
+                size={64}
+              />
+              <div className={styles["c-empty-tasklist__content"]}>
+                <h2 className={styles["c-empty-tasklist__content__title"]}>
+                  Você ainda não tem tarefas cadastradas.
+                </h2>
+                <p className={styles["c-empty-tasklist__content__paragraph"]}>
+                  Crie tarefas e organize seus itens a fazer.
+                </p>
+              </div>
             </div>
-          </div>
-
-          <div className={styles["o-tasks-container"]}>
-            <Todo />
-            <Todo />
-            <Todo />
-          </div>
+          ) : (
+            <div className={styles["o-tasks-container"]}>
+              {todos.map(todo => {
+                return (
+                  <Todo todoTitle={todo} />
+                );
+              })}
+            </div>
+          )}
         </section>
       </main>
     </div>

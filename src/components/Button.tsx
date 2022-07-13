@@ -5,28 +5,46 @@ type iconNames = "Plus";
 
 interface ButtonProps {
   iconName?: iconNames;
-  btnColor: "blue";
-  btnElement: "anchor" | "button";
+  btnColor?: "default";
   btnText: string;
   btnTitle: string;
-  btnHref?: string;
-  btnType?: "button" | "reset" | "submit";
+  btnType: "button" | "reset" | "submit";
   isDisabled?: boolean;
 }
 
-export function Button(props) {
+export function Button(props: ButtonProps) {
+  function returnButtonClasses() {
+    if (!props.btnColor) {
+      return `${styles["c-btn"]}`;
+    }
+  }
+
+  function renderIcon() {
+    if (!props.iconName) return;
+
+    switch (props.iconName) {
+      case "Plus":
+        return (
+          <Plus 
+            className={styles["c-btn__icon"]} 
+            weight="bold" 
+          />
+        );
+
+      default:
+        break;
+    }
+  }
+
   return (
     <button
-      className={styles["c-btn"]}
-      type="submit"
-      title="Criar tarefa"
-      disabled={false}
+      className={returnButtonClasses()}
+      type={props.btnType ? props.btnType : "button"}
+      title={props.btnTitle}
+      disabled={props.isDisabled ? true : false}
     >
-      CRIAR
-      <Plus 
-        className={styles["c-btn__icon"]}
-        weight="bold"
-      />
+      {props.btnText}
+      {renderIcon()}
     </button>
   );
 }
