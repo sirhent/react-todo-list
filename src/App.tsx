@@ -1,4 +1,5 @@
 import { ChangeEvent, FormEvent, InvalidEvent, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 import { ClipboardText } from "phosphor-react";
 import { Button } from "./components/Button";
@@ -10,24 +11,26 @@ import styles from "./App.module.css";
 
 import todoLogo from "./assets/images/brand/Todo-Logo.svg";
 
-const tasks = [
-  "Task 1",
-  "Task 2",
-  "Task 3",
-];
+export type TodoType = {
+  id: string,
+  title: string,
+  completed: boolean
+}
 
 function App() {
-  const [todos, setTodos] = useState<string[]>([]);
+  const [todos, setTodos] = useState<TodoType[]>([]);
+  const [todosCount, setTodosCount] = useState(0);
   const [newTodoText, setNewTodoText] = useState("");
 
   function handleCreateNewTodo(event: FormEvent) {
     event.preventDefault();
 
-    setTodos([...todos, newTodoText]);
+    setTodos([...todos, { id: uuidv4(), title: newTodoText, completed: false}]);
+    setTodosCount((state) => state + 1);
     setNewTodoText("");
   }
 
-  function handleNewTodoTextChange(event: ChangeEvent<HTMLInputElement>) {
+  function handleNewTodoTextChange(event: ChangeEvent<HTMLInputElement>): void {
     event.target.setCustomValidity("");
     setNewTodoText(event.target.value);
   }
@@ -35,8 +38,21 @@ function App() {
   console.log(todos);
   console.log(newTodoText);
 
-  function handleNewTodoTextInvalid(event: InvalidEvent<HTMLInputElement>) {
+  function handleNewTodoTextInvalid(event: InvalidEvent<HTMLInputElement>): void {
     event.target.setCustomValidity("Insira um título para a tarefa.");
+  }
+
+  function handleDeleteTodo(todoToBeDeletedById: string): void {
+    const todoListWithoutDeletedTodo = todos.filter((todo) => {
+      if (todo.id === todoToBeDeletedById) {
+        return false;
+      } else {
+        return true;
+      }
+    });
+
+    setTodos(todoListWithoutDeletedTodo);
+    setTodosCount((state) => state - 1);
   }
 
   const isTodoListEmpty = todos.length === 0;
@@ -90,13 +106,15 @@ function App() {
           <div className={styles["c-tasks-info"]}>
             <h1 className={styles["c-tasks-info__tasks-created"]}>
               Tarefas criadas
-              <span className={styles["c-tasks-count"]}>0</span>
+              <span className={styles["c-tasks-count"]}>
+                {todosCount}
+              </span>
             </h1>
 
             <strong className={styles["c-tasks-info__tasks-concluded"]}>
               Concluídas
               <span className={styles["c-tasks-count"]}>
-                0
+                0 / {todosCount}
               </span>
             </strong>
           </div>
@@ -123,7 +141,11 @@ function App() {
             <div className={styles["o-tasks-container"]}>
               {todos.map(todo => {
                 return (
-                  <Todo todoTitle={todo} />
+                  <Todo 
+                    key={todo.id}
+                    todoItem={todo} 
+                    onDeleteTodo={handleDeleteTodo}
+                  />
                 );
               })}
             </div>

@@ -1,9 +1,13 @@
 import { Trash } from "phosphor-react";
 import { useId } from "react";
+
+import { TodoType } from "../App";
+
 import styles from "./Todo.module.css";
 
 interface TodoProps {
-  todoTitle: string;
+  todoItem: TodoType;
+  onDeleteTodo: (todoId: string) => void;
 }
 
 export function Todo(props: TodoProps) {
@@ -44,7 +48,7 @@ export function Todo(props: TodoProps) {
       </div>
 
       <h2 className={styles["c-task__title"]}>
-        {props.todoTitle}
+        {props.todoItem.title}
       </h2>
 
       <div className={styles["c-task__actions"]}>
@@ -52,6 +56,7 @@ export function Todo(props: TodoProps) {
           className={styles["c-task__actions__delete-btn"]}
           title="Deletar tarefa"
           disabled={false}
+          onClick={() => props.onDeleteTodo(props.todoItem.id)}
         >
           <Trash 
             className={styles["c-task__actions__delete-btn__icon"]}
