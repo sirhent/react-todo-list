@@ -35,9 +35,6 @@ function App() {
     setNewTodoText(event.target.value);
   }
 
-  console.log(todos);
-  console.log(newTodoText);
-
   function handleNewTodoTextInvalid(event: InvalidEvent<HTMLInputElement>): void {
     event.target.setCustomValidity("Insira um título para a tarefa.");
   }
@@ -53,6 +50,30 @@ function App() {
 
     setTodos(todoListWithoutDeletedTodo);
     setTodosCount((state) => state - 1);
+  }
+
+  function handleTodoCompletion(todoId: string, isCompleted: boolean): void {
+    const todoListWithUpdatedTodo = todos.map((todo) => {
+      if (todo.id === todoId) {
+        return {
+          id: todo.id,
+          title: todo.title,
+          completed: isCompleted
+        }
+      } else {
+        return todo;
+      }
+    });
+
+    setTodos(todoListWithUpdatedTodo);
+  }
+
+  function updateCompletedTodosCount(): string {
+    let completedCount = todos.reduce((prevValue: number, curValue) => {
+      return prevValue + Number(curValue.completed);
+    }, 0);
+
+    return String(completedCount);
   }
 
   const isTodoListEmpty = todos.length === 0;
@@ -114,7 +135,7 @@ function App() {
             <strong className={styles["c-tasks-info__tasks-concluded"]}>
               Concluídas
               <span className={styles["c-tasks-count"]}>
-                0 / {todosCount}
+                {updateCompletedTodosCount()} / {todosCount}
               </span>
             </strong>
           </div>
@@ -145,6 +166,7 @@ function App() {
                     key={todo.id}
                     todoItem={todo} 
                     onDeleteTodo={handleDeleteTodo}
+                    onTodoCompleted={handleTodoCompletion}
                   />
                 );
               })}

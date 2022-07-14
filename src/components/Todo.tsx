@@ -1,5 +1,5 @@
 import { Trash } from "phosphor-react";
-import { useId } from "react";
+import { useEffect, useId, useState } from "react";
 
 import { TodoType } from "../App";
 
@@ -8,10 +8,24 @@ import styles from "./Todo.module.css";
 interface TodoProps {
   todoItem: TodoType;
   onDeleteTodo: (todoId: string) => void;
+  onTodoCompleted: (todoId: string, isCompleted: boolean) => void;
 }
 
 export function Todo(props: TodoProps) {
   const checkboxId = useId();
+  const [isTodoCompleted, setIsTodoCompleted] = useState(false);
+
+  function handleTodoCompletion() {
+    if (isTodoCompleted) {
+      setIsTodoCompleted((state) => !state);
+    } else {
+      setIsTodoCompleted((state) => !state);
+    }
+  }
+
+  useEffect(() => {
+    props.onTodoCompleted(props.todoItem.id, isTodoCompleted);
+  }, [isTodoCompleted]);
 
   return (
     <div className={styles["c-task"]}>
@@ -21,6 +35,7 @@ export function Todo(props: TodoProps) {
           type="checkbox"
           name="taskCheckbox"
           id={checkboxId}
+          onChange={handleTodoCompletion}
         />
         <label 
           className={styles["c-checkbox__label"]}
