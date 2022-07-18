@@ -50,15 +50,7 @@
   --small-border-radius: 8px;
   --medium-border-radius: 12px;
   --huge-border-radius: 24px;
-}
-
-
-/* Global stylings
-   ========================================================================== */
-body {
-  /* background-color: var(--gray-900); */
-  min-height: 100vh;
-  background: 
+  --background-gradient:
     linear-gradient(
       116.82deg,
       rgba(40, 44, 51, 0.5) 0%,
@@ -72,6 +64,23 @@ body {
         #202439
       ), 
       #191B1D;
+  --board-background:
+    radial-gradient(
+      circle at center,
+      rgba(9, 30, 35, 0.2) 0,
+      rgba(10, 18, 39, 0.2) 50%,
+      rgba(7, 32, 37, 0.2) 100%
+    ),
+    rgba(66, 82, 105, 0.1);
+}
+
+
+
+/* Global stylings
+   ========================================================================== */
+body {
+  /* background-color: var(--gray-900); */
+  min-height: 100vh;
 
   font-family: "Exo 2", sans-serif;
   font-weight: 400;

@@ -1,6 +1,6 @@
 import { ClipboardText } from "phosphor-react";
 
-import styles from "./EmptyMessage.module.css";
+import styles from "./EmptyMessage.module.scss";
 
 export function EmptyMessage() {
   return (

@@ -1,0 +1,31 @@
+:global {
+  .t-light-theme {
+    /* Color styles */
+
+    /* Effect styles */
+
+    /* Misc. stylings */
+    --background-gradient:
+      linear-gradient(
+        116.82deg,
+        rgba(181, 195, 221, 0.5) 0%,
+        rgba(171, 199, 224, 0.5) 26.04%,
+        rgba(156, 178, 211, 0.5) 51.56%,
+        rgba(157, 208, 219, 0.5) 75%,
+        rgba(85, 109, 155, 0.5) 100%),
+        linear-gradient(
+          0deg,
+          #BCD7FF,
+          #BCD7FF
+        ),
+        #191B1D;
+    --board-background:
+      radial-gradient(
+        circle at center,
+        rgba(176, 197, 227, 0.1) 0%,
+        rgba(194, 211, 255, 0.1) 55.21%,
+        rgba(130, 230, 243, 0.1) 100%
+      ),
+      rgba(218, 233, 255, 0.1);
+  }
+}

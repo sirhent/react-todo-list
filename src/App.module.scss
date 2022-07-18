@@ -1,0 +1,247 @@
+@import "./themes.scss";
+
+
+
+.c-app-background {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  width: 100%;
+  min-height: 100vh;
+  background: var(--background-gradient);
+
+  transition: background 300ms ease;
+}
+
+
+
+.o-board-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-left: auto;
+  margin-right: auto;
+  /* margin-top: 2rem; */
+  /* margin-bottom: 2rem; */
+
+  padding-left: 1.6rem;
+  padding-right: 1.6rem;
+  padding-top: 1.6rem;
+  padding-bottom: 1.6rem;
+
+  max-width: 90rem;
+
+  border-radius: var(--huge-border-radius);
+  border: 1px solid var(--blue--dark--faded);
+  background: var(--board-background);
+  backdrop-filter: blur(var(--default-bg-blur));
+
+  transition:
+    border 300ms ease,
+    background 300ms ease;
+}
+
+.c-board-layout {
+  width: 100%;
+  max-width: 73rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6.4rem;
+
+  transform: translateY(-2.7rem);
+}
+
+
+/* HEADER */
+.c-board-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+  padding: 3.3rem;
+  width: 100%;
+  height: 18rem;
+
+  border-radius: var(--huge-border-radius);
+  background-color: var(--blue-700--faded);
+
+  &__logo-box {
+    width: max-content;
+    margin-left: auto;
+    margin-right: auto;
+
+    &__header {
+      max-height: 3.6rem;
+    }
+  }
+}
+:global(.t-light-theme) .c-board-header {
+  background-color: var(--blue-200);
+}
+
+// .t-light-theme .c-btn {
+//   background-color: rgba(30, 81, 159, 0.08);
+//   color: var(--blue--dark);
+// }
+
+
+/* TASK FORM */
+.c-task-form {
+  width: 100%;
+  display: flex;
+  gap: 0.8rem;
+
+  // -> .c-task-form
+  &__group {
+    width: 100%;
+    position: relative;
+    display: flex;
+
+    // -> .c-task-form__group
+    &__input {
+      width: 100%;
+      padding: 1.6rem;
+
+      background-color: var(--blue-500--faded);
+      backdrop-filter: blur(var(--default-bg-blur));
+      border: 1px solid var(--blue--dark--faded);
+      border-radius: var(--medium-border-radius);
+
+      color: var(--blue-300);
+
+      transition: 
+        color 300ms ease,
+        box-shadow 300ms ease,
+        border 300ms ease,
+        background-color 300ms ease;
+
+      // -> .c-task-form__group__input
+      &::placeholder {
+        opacity: 1;
+        font-size: 1.6rem;
+        font-family: inherit;
+        font-weight: inherit;
+      }
+
+      // -> .c-task-form__group__input
+      &:hover,
+      &:focus {
+        outline: none;
+        box-shadow: var(--green-underglow--soft);
+        border: 1px solid var(--green);
+        color: var(--blue-200);
+      }
+    }
+
+    // -> .c-task-form__group
+    &__label {
+      position: absolute;
+      left: 1.6rem;
+      top: 1.6rem;
+      font-size: 1.6rem;
+      color: var(--blue-200);
+      transform: translateY(-5rem);
+
+      transition: 
+        transform 300ms ease,
+        opacity 300ms ease;
+    }
+
+    // -> .c-task-form__group
+    &__input:placeholder-shown +
+      &__label {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(0);
+    }
+  }
+}
+:global(.t-light-theme) .c-task-form__group__input {
+  background-color: rgba(161, 187, 219, 0.08);
+}
+:global(.t-light-theme) .c-task-form__group__input:hover,
+:global(.t-light-theme) .c-task-form__group__input:focus {
+  box-shadow: var(--green-underglow);
+  border: 1px solid var(--green--dark);
+  color: var(--blue-400);
+}
+:global(.t-light-theme) .c-task-form__group__label {
+  color: var(--blue-300);
+}
+
+
+
+/* TASK LIST CONTENT */
+.o-task-list-content {
+  width: 100%;
+}
+
+.c-tasks-info {
+  margin-bottom: 2.4rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  // -> .c-tasks-info
+  &__tasks-created {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--blue);
+  }
+
+  // -> .c-tasks-info
+  &__tasks-concluded {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--green);
+  }
+}
+:global(.t-light-theme) .c-tasks-info__tasks-concluded {
+  color: var(--green--dark);
+}
+
+.c-tasks-count {
+  display: inline-block;
+  padding: 0.2rem 0.8rem;
+
+  border-radius: 100px;
+  background-color: var(--blue-400);
+
+  line-height: 1.5;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--blue-200);
+
+  pointer-events: none;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  transition:
+    background-color 500ms ease,
+    color 500ms ease;
+}
+:global(.t-light-theme) .c-tasks-count {
+  color: var(--blue-400);
+  background-color: var(--blue-200);
+}
+
+
+
+.o-tasks-container {
+  margin-top: 2.4rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}

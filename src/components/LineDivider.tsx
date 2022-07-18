@@ -1,4 +1,4 @@
-import styles from "./LineDivider.module.css";
+import styles from "./LineDivider.module.scss";
 
 export function LineDivider() {
   return (

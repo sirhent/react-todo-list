@@ -1,0 +1,54 @@
+// :global {
+  .c-btn {
+    padding: 1.6rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    border: 1px solid var(--blue--dark);
+    border-radius: var(--medium-border-radius);
+    background-color: var(--blue--dark--faded);
+    backdrop-filter: blur(var(--default-bg-blur));
+
+    font-family: inherit;
+    font-weight: 300;
+    color: var(--blue--light);
+
+    cursor: pointer;
+
+    transition:
+      color 200ms ease,
+      border 200ms ease,
+      background-color 200ms ease,
+      box-shadow 200ms ease;
+
+    &__icon {
+      height: 1.6rem;
+      width: 1.6rem;
+      color: currentColor;
+
+      transition: color 200ms ease;
+    }
+
+    &:hover,
+    &:focus {
+      outline: none;
+
+      border: 1px solid var(--blue--light);
+      background-color: var(--blue--faded);
+      box-shadow: var(--blue-underglow);
+
+      color: var(--blue-100);
+    }
+  }
+// }
+:global(.t-light-theme) .c-btn {
+  background-color: rgba(30, 81, 159, 0.08);
+  color: var(--blue--dark);
+}
+:global(.t-light-theme) .c-btn:hover,
+:global(.t-light-theme) .c-btn:focus {
+  background-color: var(--blue);
+  color: var(--blue-100);
+}
+

@@ -3,7 +3,7 @@ import { useEffect, useId, useState } from "react";
 
 import { TodoType } from "../App";
 
-import styles from "./Todo.module.css";
+import styles from "./Todo.module.scss";
 
 interface TodoProps {
   todoItem: TodoType;

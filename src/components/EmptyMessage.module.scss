@@ -1,0 +1,31 @@
+.c-empty-tasklist {
+  padding: 6.4rem 2rem;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.6rem;
+  width: max-content;
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__content__title {
+    font-size: 1.6rem;
+    font-weight: 700;
+  }
+
+  &__content__paragraph {
+    margin-top: 0.4rem;
+    font-size: 1.5rem;
+  }
+
+  &__icon {
+    width: 6.4rem;
+    height: 6.4rem;
+  }
+}

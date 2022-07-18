@@ -1,16 +1,16 @@
 import { ChangeEvent, FormEvent, InvalidEvent, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-import { ClipboardText } from "phosphor-react";
 import { Button } from "./components/Button";
 import { LineDivider } from "./components/LineDivider";
 import { Todo } from "./components/Todo";
+import { EmptyMessage } from "./components/EmptyMessage";
+import { ThemeSwitch } from "./components/ThemeSwitch";
 
-import "./global.css";
-import styles from "./App.module.css";
+import "./global.scss";
+import styles from "./App.module.scss";
 
 import todoLogo from "./assets/images/brand/Todo-Logo.svg";
-import { EmptyMessage } from "./components/EmptyMessage";
 
 export type TodoType = {
   id: string,
@@ -18,10 +18,13 @@ export type TodoType = {
   completed: boolean
 }
 
+type ThemeMode = "dark" | "light";
+
 function App() {
   const [todos, setTodos] = useState<TodoType[]>([]);
   const [todosCount, setTodosCount] = useState(0);
   const [newTodoText, setNewTodoText] = useState("");
+  const [themeMode, setThemeMode] = useState<ThemeMode>("dark");
 
   function handleCreateNewTodo(event: FormEvent) {
     event.preventDefault();
@@ -77,90 +80,107 @@ function App() {
     return String(completedCount);
   }
 
+  function handleThemeToggle(isSwitched: boolean): void {
+    if (isSwitched) {
+      setThemeMode("light");
+    } else {
+      setThemeMode("dark");
+    }
+  }
+
   const isTodoListEmpty = todos.length === 0;
 
+  const lightThemeClasses = `${styles["c-app-background"]} t-light-theme`;
+  const darkThemeClasses = styles["c-app-background"];
+
   return (
-    <div className={styles["o-board-container"]}>
-      <header className={styles["c-board-header"]}>
-        <div className={styles["c-board-header__logo-box"]}>
-          <img
-            className={styles["c-board-header__logo-box__logo"]}
-            src={todoLogo}
-            alt="Todo list logo"
-            title="Todo list logo"
-          />
-        </div>
-      </header>
-
-      <main className={styles["c-board-layout"]}>
-        <form 
-            className={styles["c-task-form"]}
-            onSubmit={handleCreateNewTodo}
-          >
-          <div className={styles["c-task-form__group"]}>
-            <input
-              className={styles["c-task-form__group__input"]}
-              type="text"
-              id="taskName"
-              name="taskName"
-              placeholder="Adicione uma nova tarefa"
-              value={newTodoText}
-              onChange={handleNewTodoTextChange}
-              onInvalid={handleNewTodoTextInvalid}
-              required
+    <div className={themeMode === "dark" ? darkThemeClasses : lightThemeClasses}>
+      <div className={styles["o-board-container"]}>
+        <header className={styles["c-board-header"]}>
+          <div className={styles["c-board-header__logo-box"]}>
+            <img
+              className={styles["c-board-header__logo-box__logo"]}
+              src={todoLogo}
+              alt="Todo list logo"
+              title="Todo list logo"
             />
-            <label 
-              className={styles["c-task-form__group__label"]}
-              htmlFor="taskName"
-            >
-              Adicione uma nova tarefa
-            </label>
           </div>
-          <Button 
-            iconName="Plus"
-            btnText="CRIAR"
-            btnTitle="Criar nova tarefa"
-            btnType="submit"
+
+          <ThemeSwitch
+            onThemeToggled={handleThemeToggle}
           />
-        </form>
+        </header>
 
-        <section className={styles["o-task-list-content"]}>
-          <div className={styles["c-tasks-info"]}>
-            <h1 className={styles["c-tasks-info__tasks-created"]}>
-              Tarefas criadas
-              <span className={styles["c-tasks-count"]}>
-                {todosCount}
-              </span>
-            </h1>
-
-            <strong className={styles["c-tasks-info__tasks-concluded"]}>
-              Concluídas
-              <span className={styles["c-tasks-count"]}>
-                {updateCompletedTodosCount()} / {todosCount}
-              </span>
-            </strong>
-          </div>
-
-          <LineDivider />
-
-          {isTodoListEmpty ? (
-            <EmptyMessage />
-          ) : (
-            <div className={styles["o-tasks-container"]}>
-              {todos.map(todo => {
-                return (
-                  <Todo 
-                    key={todo.id}
-                    todoItem={todo} 
-                    onDeleteTodo={handleDeleteTodo}
-                    onTodoCompleted={handleTodoCompletion}
-                  />
-                );
-              })}
+        <main className={styles["c-board-layout"]}>
+          <form
+              className={styles["c-task-form"]}
+              onSubmit={handleCreateNewTodo}
+            >
+            <div className={styles["c-task-form__group"]}>
+              <input
+                className={styles["c-task-form__group__input"]}
+                type="text"
+                id="taskName"
+                name="taskName"
+                placeholder="Adicione uma nova tarefa"
+                value={newTodoText}
+                onChange={handleNewTodoTextChange}
+                onInvalid={handleNewTodoTextInvalid}
+                required
+              />
+              <label
+                className={styles["c-task-form__group__label"]}
+                htmlFor="taskName"
+              >
+                Adicione uma nova tarefa
+              </label>
             </div>
-          )}
-        </section>
-      </main>
+            <Button
+              iconName="Plus"
+              btnText="CRIAR"
+              btnTitle="Criar nova tarefa"
+              btnType="submit"
+            />
+          </form>
+
+          <section className={styles["o-task-list-content"]}>
+            <div className={styles["c-tasks-info"]}>
+              <h1 className={styles["c-tasks-info__tasks-created"]}>
+                Tarefas criadas
+                <span className={styles["c-tasks-count"]}>
+                  {todosCount}
+                </span>
+              </h1>
+
+              <strong className={styles["c-tasks-info__tasks-concluded"]}>
+                Concluídas
+                <span className={styles["c-tasks-count"]}>
+                  {updateCompletedTodosCount()} / {todosCount}
+                </span>
+              </strong>
+            </div>
+
+            <LineDivider />
+
+            {isTodoListEmpty ? (
+              <EmptyMessage />
+            ) : (
+              <div className={styles["o-tasks-container"]}>
+                {todos.map(todo => {
+                  return (
+                    <Todo
+                      key={todo.id}
+                      todoItem={todo}
+                      onDeleteTodo={handleDeleteTodo}
+                      onTodoCompleted={handleTodoCompletion}
+                    />
+                  );
+                })}
+              </div>
+            )}
+          </section>
+        </main>
+      </div>
     </div>
   )
 }

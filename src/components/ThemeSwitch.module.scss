@@ -1,0 +1,58 @@
+.c-theme-switch-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.c-theme-switch-icon {
+  width: 3.2rem;
+  height: 3.2rem;
+  color: var(--blue-300);
+}
+
+.c-theme-switch {
+
+  &__input {
+    display: none;
+    pointer-events: none;
+  }
+
+  &__label {
+    position: relative;
+    display: block;
+    padding: 0.6rem;
+    height: 2.8rem;
+    width: 4.4rem;
+
+    background-color: var(--blue-400);
+    border-radius: 100px;
+
+    cursor: pointer;
+
+    transition: background-color 300ms ease;
+  }
+
+  &__label::before {
+    content: "";
+    position: absolute;
+    height: 1.6rem;
+    width: 1.6rem;
+    /* left: 50%; */
+    left: 0.6rem;
+
+    background-color: var(--blue-300);
+    border-radius: 100px;
+
+    transition: left 200ms ease;
+  }
+
+  &__input:checked + &__label::before {
+    left: 50%;
+  }
+}
+:global(.t-light-theme) .c-theme-switch__label {
+  background-color: var(--blue-100);
+}
+// :global(.t-light-theme) .c-theme-switch__label::before {
+//   background-color: var(--blue-300);
+// }
