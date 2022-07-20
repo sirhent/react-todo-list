@@ -25,16 +25,88 @@
   }
 
   &__title {
+    word-break: break-all;
     margin-top: 0.3rem;
     font-size: 1.4rem;
     font-weight: 400;
     color: var(--blue-200);
   }
 
+  &__edit-area {
+    margin-top: 0.3rem;
+    width: 100%;
+    // height: max-content;
+    height: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--blue);
+
+    resize: none;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--blue-200);
+
+    transition: border-bottom 200ms ease;
+
+    &:hover,
+    &:focus {
+      outline: none;
+      border-bottom: 1px solid var(--blue--light);
+    }
+  }
+
   &__actions {
     margin-left: auto;
     display: flex;
     gap: 1rem;
+
+    &__save-btn {
+      width: 2.4rem;
+      height: 2.4rem;
+      border: none;
+      background-color: transparent;
+
+      cursor: pointer;
+
+      &__icon {
+        width: 2.4rem;
+        height: 2.4rem;
+        
+        color: var(--blue-300);
+        transition:
+          color 200ms ease,
+          filter 200ms ease;
+      }
+
+      &:hover &__icon {
+        filter: var(--save-icon-underglow);
+        color: var(--green--dark);
+      }
+    }
+
+    &__edit-btn {
+      width: 2.4rem;
+      height: 2.4rem;
+      border: none;
+      background-color: transparent;
+
+      cursor: pointer;
+
+      &__icon {
+        width: 2.4rem;
+        height: 2.4rem;
+
+        color: var(--blue-300);
+        transition: 
+          color 200ms ease,
+          filter 200ms ease;
+      }
+
+      &:hover &__icon {
+        filter: var(--edit-icon-underglow);
+        color: var(--blue);
+      }
+    }
 
     &__delete-btn {
       width: 2.4rem;
@@ -45,6 +117,8 @@
       cursor: pointer;
 
       &__icon {
+        width: 2.4rem;
+        height: 2.4rem;
         color: var(--blue-300);
         transition:
           color 200ms ease,

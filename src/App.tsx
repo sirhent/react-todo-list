@@ -72,6 +72,22 @@ function App() {
     setTodos(todoListWithUpdatedTodo);
   }
 
+  function handleTodoEdit(todoId: string, newTodoText: string) {
+    const todoListWithUpdatedTodo = todos.map((todo) => {
+      if (todo.id === todoId) {
+        return {
+          id: todo.id,
+          title: newTodoText,
+          completed: todo.completed
+        }
+      } else {
+        return todo;
+      }
+    });
+
+    setTodos(todoListWithUpdatedTodo);
+  }
+
   function updateCompletedTodosCount(): string {
     let completedCount = todos.reduce((prevValue: number, curValue) => {
       return prevValue + Number(curValue.completed);
@@ -171,8 +187,9 @@ function App() {
                     <Todo
                       key={todo.id}
                       todoItem={todo}
-                      onDeleteTodo={handleDeleteTodo}
+                      onDeletedTodo={handleDeleteTodo}
                       onTodoCompleted={handleTodoCompletion}
+                      onTodoEdited={handleTodoEdit}
                     />
                   );
                 })}

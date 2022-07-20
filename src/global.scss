@@ -10,6 +10,7 @@
   --blue-700: rgba(25, 27, 29, 1);
   --blue-700--faded: rgba(25, 27, 29, 0.5);
   --green: rgba(62, 222, 136, 1);
+  --green--faded: rgba(62, 222, 136, 0.5);
   --green--dark: rgba(39, 173, 101, 1);
   --blue--light: rgba(116, 171, 255, 1);
   --blue: rgba(63, 130, 231, 1);
@@ -45,6 +46,12 @@
   --trash-icon-underglow:
       drop-shadow(0 0 0.5rem var(--danger))
       drop-shadow(0 0 1rem var(--danger--faded));
+  --edit-icon-underglow:
+      drop-shadow(0 0 0.5rem var(--blue))
+      drop-shadow(0 0 1rem var(--blue--faded));
+  --save-icon-underglow:
+      drop-shadow(0 0 0.5rem var(--green))
+      drop-shadow(0 0 1rem var(--green--faded));
 
   /* Misc. stylings */
   --small-border-radius: 8px;

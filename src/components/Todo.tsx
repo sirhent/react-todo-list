@@ -1,5 +1,6 @@
-import { Trash } from "phosphor-react";
-import { useEffect, useId, useState } from "react";
+import { FloppyDisk, Pencil, Trash } from "phosphor-react";
+import { ChangeEvent, useEffect, useId, useState } from "react";
+import TextareaAutosize from "react-textarea-autosize";
 
 import { TodoType } from "../App";
 
@@ -7,13 +8,16 @@ import styles from "./Todo.module.scss";
 
 interface TodoProps {
   todoItem: TodoType;
-  onDeleteTodo: (todoId: string) => void;
+  onDeletedTodo: (todoId: string) => void;
   onTodoCompleted: (todoId: string, isCompleted: boolean) => void;
+  onTodoEdited: (todoId: string, newTodoText: string) => void;
 }
 
 export function Todo(props: TodoProps) {
   const checkboxId = useId();
   const [isTodoCompleted, setIsTodoCompleted] = useState(false);
+  const [isTodoBeingEdited, setIsTodoBeingEdited] = useState(false);
+  const [editingText, setEditingText] = useState(props.todoItem.title);
 
   function handleTodoCompletion() {
     if (isTodoCompleted) {
@@ -26,6 +30,22 @@ export function Todo(props: TodoProps) {
   useEffect(() => {
     props.onTodoCompleted(props.todoItem.id, isTodoCompleted);
   }, [isTodoCompleted]);
+
+  function handleTodoTextChange(event: ChangeEvent<HTMLTextAreaElement>) {
+    setEditingText(event.target.value);
+  }
+
+  function handleTodoEditState() {
+    if (isTodoBeingEdited) {
+      setIsTodoBeingEdited((prevState) => !prevState);
+    } else {
+      setIsTodoBeingEdited((prevState) => !prevState);
+    }
+  }
+
+  useEffect(() => {
+    props.onTodoEdited(props.todoItem.id, editingText);
+  }, [isTodoBeingEdited]);
 
   return (
     <div className={styles["c-task"]}>
@@ -62,20 +82,50 @@ export function Todo(props: TodoProps) {
         </label>
       </div>
 
-      <h2 className={styles["c-task__title"]}>
-        {props.todoItem.title}
-      </h2>
+      {isTodoBeingEdited ? (
+        <TextareaAutosize 
+          className={styles["c-task__edit-area"]}
+          value={editingText}
+          onChange={handleTodoTextChange}
+        />
+      ) : (
+        <h2 className={styles["c-task__title"]}>
+          {editingText}
+        </h2>
+      )} 
 
       <div className={styles["c-task__actions"]}>
+        {isTodoBeingEdited ? (
+          <button 
+            className={styles["c-task__actions__save-btn"]}
+            title="Salvar alterações"
+            onClick={handleTodoEditState}
+          >
+            <FloppyDisk 
+              className={styles["c-task__actions__save-btn__icon"]}
+            />
+          </button>
+        ) : (
+          <button 
+            className={styles["c-task__actions__edit-btn"]}
+            title="Editar tarefa"
+            onClick={handleTodoEditState}
+          >
+            <Pencil 
+              className={styles["c-task__actions__edit-btn__icon"]}
+            />
+          </button>
+        )}
+
         <button
           className={styles["c-task__actions__delete-btn"]}
           title="Deletar tarefa"
           disabled={false}
-          onClick={() => props.onDeleteTodo(props.todoItem.id)}
+          onClick={() => props.onDeletedTodo(props.todoItem.id)}
         >
           <Trash 
             className={styles["c-task__actions__delete-btn__icon"]}
-            size={24}
+            // size={24}
           />
         </button>
       </div>
