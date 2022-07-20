@@ -36,9 +36,6 @@ function App() {
 
       setTodos(loadedTodos);
       setTodosCount(tempTodosCount);
-      // setTodosCount((prevState) => { 
-      //   return prevState + tempTodosCount;
-      // });
       console.log("hello");
     }
   }, []);
