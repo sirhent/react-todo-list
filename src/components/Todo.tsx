@@ -15,7 +15,7 @@ interface TodoProps {
 
 export function Todo(props: TodoProps) {
   const checkboxId = useId();
-  const [isTodoCompleted, setIsTodoCompleted] = useState(false);
+  const [isTodoCompleted, setIsTodoCompleted] = useState(props.todoItem.completed);
   const [isTodoBeingEdited, setIsTodoBeingEdited] = useState(false);
   const [editingText, setEditingText] = useState(props.todoItem.title);
 
@@ -56,6 +56,7 @@ export function Todo(props: TodoProps) {
           name="taskCheckbox"
           id={checkboxId}
           onChange={handleTodoCompletion}
+          checked={props.todoItem.completed}
         />
         <label 
           className={styles["c-checkbox__label"]}

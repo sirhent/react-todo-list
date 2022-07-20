@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, InvalidEvent, useState } from "react";
+import { ChangeEvent, FormEvent, InvalidEvent, useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import { Button } from "./components/Button";
@@ -25,6 +25,29 @@ function App() {
   const [todosCount, setTodosCount] = useState(0);
   const [newTodoText, setNewTodoText] = useState("");
   const [themeMode, setThemeMode] = useState<ThemeMode>("dark");
+
+  // Load todos from local storage
+  useEffect(() => {
+    const todosAsJson = localStorage.getItem("todoList");
+    const loadedTodos: TodoType[] = JSON.parse(todosAsJson as string);
+
+    if (loadedTodos?.length) {
+      const tempTodosCount = loadedTodos.length;
+
+      setTodos(loadedTodos);
+      setTodosCount(tempTodosCount);
+      // setTodosCount((prevState) => { 
+      //   return prevState + tempTodosCount;
+      // });
+      console.log("hello");
+    }
+  }, []);
+
+  // Save todos on local storage
+  useEffect(() => {
+    const todosAsJson = JSON.stringify(todos);
+    localStorage.setItem("todoList", todosAsJson);
+  }, [todos]);
 
   function handleCreateNewTodo(event: FormEvent) {
     event.preventDefault();
